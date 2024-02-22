@@ -1,34 +1,201 @@
-Overview
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin: 50px;
+      background-color: #FFEBEE; /* Light Pink Background */
+    }
 
-I created this Wordle game as a special birthday gift for my friend who loves playing Wordle. The game is personalized with words that are significant to us, adding a touch of familiarity and shared memories to the gaming experience. It's a fun and challenging way to celebrate your friend's special day.
+    #word-container {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
 
-How to Play
+    #input-container {
+      margin-top: 20px;
+    }
 
-Objective: Guess the word of the day within 6 attempts.
-Instructions:
-Enter a 5-letter word in the input field.
-Click the "Submit" button to check your guess.
-The game provides feedback on each guess with green, yellow, or gray tiles.
-Green: Correct letter and correct position.
-Yellow: Correct letter but wrong position.
-Gray: Incorrect letter.
-Restart: If you want to play again, simply click the "Restart Game" button.
-Personalization
+    #guess-input {
+      padding: 5px;
+      font-size: 16px;
+    }
 
-The words used in the game are carefully chosen to reflect our shared experiences and inside jokes. Feel free to enjoy the game and reminisce about the memories associated with each word.
+    #result {
+      margin-top: 10px;
+      font-size: 18px;
+    }
 
-Technical Details
+    .tile-row {
+      margin-top: 10px;
+    }
 
-The game is implemented using HTML, CSS, and JavaScript. The styling is personalized with a light pink background and playful fonts. The code is structured to handle the game logic, including word generation, user input validation, and feedback display.
+    .tile {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 2px;
+      border: 1px solid #ccc;
+    }
 
-Special Reward
+    .green {
+      background-color: #8BC34A;
+    }
 
-Upon successfully guessing the word, a congratulatory message is displayed along with a reward message and a cute animated gif. Enjoy the celebration and the little surprise!
+    .yellow {
+      background-color: #FFC107;
+    }
 
-Running the Game
+    .gray {
+      background-color: #E0E0E0;
+    }
 
-Simply open the HTML file in a web browser to start playing. For additional customization or deployment, consider using a web server.
+    .restart-btn {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
 
-Note: The game is best enjoyed with a sense of humor and a willingness to embrace the personalized touch.
+    .reward-message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #4CAF50;
+    }
 
-Have a fantastic birthday celebration filled with joy and laughter! 🎂🥳
+    .reward-link {
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+  </style>
+  <title>Wordle Game</title>
+</head>
+<body>
+
+  <h1>🎉 hi its your twenty four years birthday bash 🎉</h1>
+  <p>enter a 5 letter word. you have 6 chances to guess the word of the day!</p>
+  <div id="input-container">
+    <label for="guess-input">enter your guess bae:</label>
+    <input type="text" id="guess-input" autocomplete="off" maxlength="5">
+    <button onclick="checkGuess()">submit</button>
+  </div>
+  <div id="result"></div>
+  <div id="word-container"></div>
+  <button class="restart-btn" onclick="restartGame()">Restart Game</button>
+  <div id="reward-message" class="reward-message"></div>
+  <img id="reward-image" style="display: none; margin-top: 20px; max-width: 100%;" src="https://media.tenor.com/R5aihrrKCLYAAAAi/bt21-chimmy.gif" alt="Chimmy Gif">
+
+  <script>
+    let wordOfTheDay;
+    let guesses = 0;
+    let guessHistory = [];
+    let tilesContainer = document.getElementById("word-container");
+
+    function generateWord() {
+      const words = ["laila", "debit", "slays", "asset", "jimin", "water", "jihyo", "horse", ];
+      const randomWord = words[Math.floor(Math.random() * words.length)];
+      return randomWord.toUpperCase();
+    }
+
+    function startGame() {
+      wordOfTheDay = generateWord();
+      guesses = 0;
+      guessHistory = [];
+      tilesContainer.innerHTML = "";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("reward-message").innerHTML = "";
+      document.getElementById("guess-input").disabled = false;
+      document.querySelector(".restart-btn").style.display = "none";
+      document.getElementById("reward-image").style.display = "none";
+    }
+
+    function updateDisplay() {
+      tilesContainer.innerHTML = "";
+      guessHistory.forEach((guess, index) => {
+        const row = document.createElement("div");
+        row.classList.add("tile-row");
+
+        // Display the guessed word
+        guess.forEach((letter, i) => {
+          const tile = document.createElement("div");
+          tile.classList.add("tile");
+          if (letter === wordOfTheDay[i]) {
+            tile.classList.add("green");
+          } else if (wordOfTheDay.includes(letter)) {
+            tile.classList.add("yellow");
+          } else {
+            tile.classList.add("gray");
+          }
+          tile.textContent = letter;
+          row.appendChild(tile);
+        });
+
+        // Display the guess below the tiles
+        const guessText = document.createElement("p");
+        guessText.textContent = `Guess ${index + 1}: ${guess.join("")}`;
+        row.appendChild(guessText);
+
+        tilesContainer.appendChild(row);
+      });
+    }
+
+    function checkGuess() {
+      const guessInput = document.getElementById("guess-input");
+      const guess = guessInput.value.toUpperCase();
+
+      if (guess.length === 5 && /^[A-Z]+$/.test(guess)) {
+        guessHistory.push(guess.split(""));
+        guesses++;
+
+        if (guessHistory[guesses - 1].join("") === wordOfTheDay) {
+          document.getElementById("result").innerHTML = `omg congrats! u got it my jobdipop "${wordOfTheDay}" in ${guesses} guesses.`;
+          guessInput.disabled = true;
+          showRestartButton();
+          showRewardMessage();
+        } else if (guesses >= 6) {
+          document.getElementById("result").innerHTML = `sorry u r a dumb dumb the correct word was "${wordOfTheDay}".`;
+          guessInput.disabled = true;
+          showRestartButton();
+        } else {
+          updateDisplay();
+        }
+      } else {
+        alert("does this look like a 5-letter word to u");
+      }
+
+      // Clear the input field
+      guessInput.value = "";
+    }
+
+    function showRestartButton() {
+      const restartBtn = document.querySelector(".restart-btn");
+      restartBtn.style.display = "block";
+    }
+
+    function restartGame() {
+      const restartBtn = document.querySelector(".restart-btn");
+      restartBtn.style.display = "none";
+      startGame();
+    }
+
+    function showRewardMessage() {
+      const rewardMessage = document.getElementById("reward-message");
+      rewardMessage.innerHTML = 'u r soooo smart (kind of)! clearly i have been a great influence on ur brain<3';
+      document.getElementById("reward-image").style.display = "block";
+    }
+
+    // Start the game on page load
+    startGame();
+  </script>
+</body>
+</html>
