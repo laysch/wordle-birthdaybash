@@ -17,4 +17,4 @@ Yellow: Correct letter but wrong position.
 Gray: Incorrect letter.
 Restart: If you want to play again, simply click the "Restart Game" button.
 
-website link to the game: https://birthdaybash-wordle.netlify.app
+website link to the game: https://1406cfbc-b2b5-47ee-bd2d-1ba2389112a2-00-3iexlyxf9iz18.janeway.replit.dev
