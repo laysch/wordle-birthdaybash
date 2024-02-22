@@ -1,0 +1,34 @@
+Overview
+
+I created this Wordle game as a special birthday gift for my friend who loves playing Wordle. The game is personalized with words that are significant to us, adding a touch of familiarity and shared memories to the gaming experience. It's a fun and challenging way to celebrate your friend's special day.
+
+How to Play
+
+Objective: Guess the word of the day within 6 attempts.
+Instructions:
+Enter a 5-letter word in the input field.
+Click the "Submit" button to check your guess.
+The game provides feedback on each guess with green, yellow, or gray tiles.
+Green: Correct letter and correct position.
+Yellow: Correct letter but wrong position.
+Gray: Incorrect letter.
+Restart: If you want to play again, simply click the "Restart Game" button.
+Personalization
+
+The words used in the game are carefully chosen to reflect our shared experiences and inside jokes. Feel free to enjoy the game and reminisce about the memories associated with each word.
+
+Technical Details
+
+The game is implemented using HTML, CSS, and JavaScript. The styling is personalized with a light pink background and playful fonts. The code is structured to handle the game logic, including word generation, user input validation, and feedback display.
+
+Special Reward
+
+Upon successfully guessing the word, a congratulatory message is displayed along with a reward message and a cute animated gif. Enjoy the celebration and the little surprise!
+
+Running the Game
+
+Simply open the HTML file in a web browser to start playing. For additional customization or deployment, consider using a web server.
+
+Note: The game is best enjoyed with a sense of humor and a willingness to embrace the personalized touch.
+
+Have a fantastic birthday celebration filled with joy and laughter! 🎂🥳
