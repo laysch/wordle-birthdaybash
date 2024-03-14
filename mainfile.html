@@ -102,7 +102,7 @@
     let tilesContainer = document.getElementById("word-container");
 
     function generateWord() {
-      const words = ["laila", "debit", "slays", "asset", "jimin", "water", "jihyo", "horse", ];
+      const words = ["laila", "tacos", "march", "cutie", "pyaar", "anime", "arabic", "steak", ];
       const randomWord = words[Math.floor(Math.random() * words.length)];
       return randomWord.toUpperCase();
     }
@@ -158,7 +158,7 @@
         guesses++;
 
         if (guessHistory[guesses - 1].join("") === wordOfTheDay) {
-          document.getElementById("result").innerHTML = `omg congrats! u got it my jobdipop "${wordOfTheDay}" in ${guesses} guesses.`;
+          document.getElementById("result").innerHTML = `omg congrats! u got it my cuteussy "${wordOfTheDay}" in ${guesses} guesses.`;
           guessInput.disabled = true;
           showRestartButton();
           showRewardMessage();
